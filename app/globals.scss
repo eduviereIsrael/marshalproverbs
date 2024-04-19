@@ -128,3 +128,20 @@ main{
   border-radius: 20px;
 }
 
+
+.mobile{
+  display: block;
+
+  @media (min-width: 768px){
+    display: none;
+  }
+}
+
+
+.desktop{
+  display: none;
+
+  @media (min-width: 768px){
+    display: block;
+  }
+}
