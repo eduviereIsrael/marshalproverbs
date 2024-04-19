@@ -163,7 +163,8 @@
         .mob-menu-div {
         display: block;
         width: 100%;
-        background-color: #fff;
+        background-color: #F3F3F3;
+
         position: fixed;
         transform: translateX(-2000px);
         // top: -100px;
@@ -237,7 +238,7 @@
     // padding: 55px;
 
     .weekly-p-cont{
-        padding: 55px;
+        padding: 20px;
         background-color: #000;
         display: flex;
         flex-direction: column;
@@ -250,6 +251,8 @@
         top: -15px;
         
         @media (min-width: 768px){
+            padding: 55px;
+
             border-radius: 6px;
             z-index: 2;
             position: relative;
