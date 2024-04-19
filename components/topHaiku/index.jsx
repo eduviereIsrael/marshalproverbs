@@ -37,6 +37,22 @@ const TopHaiku = ({haikuWallpapers}) => {
         return stringWithComma;
       }
 
+      useEffect(() => {
+        const handleContextMenu = (event) => {
+          event.preventDefault(); // Prevent the default behavior of the context menu
+          // Add your custom logic here
+          // For example, redirecting the user to a different page:
+        };
+    
+        // Add event listener for the contextmenu event when the component mounts
+        document.addEventListener('contextmenu', handleContextMenu);
+    
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+          document.removeEventListener('contextmenu', handleContextMenu);
+        };
+      }, []); 
+
 
    
 
