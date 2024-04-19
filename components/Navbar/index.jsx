@@ -45,10 +45,9 @@ const Navbar = () => {
       <div className={navClick? "mob-menu-div menu-show": "mob-menu-div "}>
           <div className="mob-menu-div-cont">
               <a href='/'>Home</a>
-              <a href=''>About Us</a>
-              <a href=''>Study Abroad counselling</a>
-              <a href='/foreign-exams'>Foreign Exams</a>
-              <a href=''>Contact Us</a>
+              <a href='/'>Poems</a>
+              <a href='/'>Wallpapers</a>
+              
               
           </div>
       </div>
