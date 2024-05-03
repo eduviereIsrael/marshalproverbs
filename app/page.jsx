@@ -1,7 +1,9 @@
 
-import { TopHaiku, WeeklyPoems } from "@/components";
+import { Plans, PoemsForm, PoemsListed, TopHaiku, WeeklyPoems } from "@/components";
 import { Inter } from "next/font/google";
 import {GraphQLClient, gql} from 'graphql-request';
+
+// import { useEffect } from "react";
 
 
 
@@ -37,6 +39,9 @@ export default async function Home() {
 
   const haikuWallpapers = await getData()
 
+
+  // useEffect(() => {
+  // }, [])
   // console.log(haikuWallpapers[0].wallpapers)
   
 
@@ -51,6 +56,7 @@ export default async function Home() {
 
             <p>Immerse yourself in a symphony of verses as we present a curated collection of poems that speak to the depths of the human experience.</p>
           </div>
+          {/* <div></div> */}
         </div>
 
         <img src="/hero-bg.webp" className="desktop" />
@@ -58,6 +64,9 @@ export default async function Home() {
       </div>
       <WeeklyPoems/>
       <TopHaiku haikuWallpapers={haikuWallpapers} />
+      <PoemsListed />
+      <PoemsForm />
+      <Plans/>
     </main>
   );
 }

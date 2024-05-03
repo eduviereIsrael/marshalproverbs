@@ -1,0 +1,26 @@
+.haiku-page{
+    padding-top: 150px;
+    width: 100%;
+
+    h1{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+
+        @media(min-width: 768px){
+            text-align: left;
+
+        }
+    }
+}
+
+.haiku-card{
+    .border{
+        background: 
+        linear-gradient(#ffffff00 0 0) padding-box, /*this is your grey background*/
+        linear-gradient(to bottom, #000000, #00000000) border-box;
+        // color: #313149;
+        // padding: 10px;
+        border: 1px solid transparent;
+    }
+}

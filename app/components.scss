@@ -238,7 +238,7 @@
     // padding: 55px;
 
     .weekly-p-cont{
-        padding: 20px;
+        padding: 100px 20px;
         background-color: #000;
         display: flex;
         flex-direction: column;
@@ -345,7 +345,6 @@
     .haiku-cont{
         width: 100%;
         display: flex;
-        margin-bottom: 200px;
         flex-direction: row;
         // border: 1px solid;
         flex-wrap: nowrap;
@@ -721,3 +720,239 @@
     
 }
 
+.poems-listed{
+    width: 100%;
+    background-color: #6C1324;
+    color: #fff;
+    padding: 125px 0 125px;
+
+    h2{
+        font-weight: 400;
+        font-size: 30px;
+        text-transform: uppercase;
+        padding-bottom: 50px;
+
+    }
+    
+
+    .poem-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+
+        @media (min-width: 768px){
+            // grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+
+
+}
+
+.poem-forms{
+    width: 100%;
+    background-color: #fff;
+    padding: 120px 0;
+
+
+    h2{
+        font-weight: 400;
+        font-size: 30px;
+        text-transform: uppercase;
+        padding-bottom: 50px;
+
+    }
+
+    .cont{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+
+        .poem-form-card{
+            // padding: 100px 25px 15px;
+            padding: 20px;
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-radius: 20px;
+            color: #fff;
+            box-shadow: inset 1000px 1000px 1000px #00000056;
+            width: 100%;
+
+            .form-info{
+                background-color: #fff;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                justify-content: flex-start;
+                height: 40px;
+                color: #000;
+                box-sizing: content-box;
+                padding: 10px 25px;
+                border-radius: 60px;
+                gap: 10px;
+
+                h5{
+                    font-size: 17px;
+                }
+
+                // &:hover{
+                //     #arrow{
+                //         opacity: 1;
+                //     }
+                // }
+                
+
+            }
+
+            .arrow{
+                background-color: #fff;
+                height: 40px;
+                width: 40px;
+                box-sizing: content-box;
+                padding: 10px 25px;
+                border-radius: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all .5s ease;
+
+                img{
+                    width: 70%;
+                }
+            }
+        }
+
+
+        @media (min-width: 768px){
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+}
+
+
+.plans{
+
+    padding: 120px 0;
+    h2{
+        font-weight: 400;
+        font-size: 30px;
+        text-transform: uppercase;
+        padding-bottom: 50px;
+
+    }
+
+    .plans-cont {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 25px;
+        
+        .plans-card {
+          padding: 70px 20px;
+        //   border: 1px dotted #000;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          border-radius: 15px;
+
+          .card-cta{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 70px;
+            gap: 15px;
+
+            a{
+                padding: 18px 50px;
+                text-decoration: none;
+                background-color: #fff;
+                color: #000;
+            }
+          }
+
+
+          h2{
+            color: #fff;
+            font-size: 36px;
+            padding-bottom: 30px;
+          }
+
+          p{
+            color: #fff;
+            font-size: 14px;
+          }
+        }
+        
+        .plans-card:nth-child(1) {
+          background-color: #4F6C70;
+        }
+        
+        .plans-card:nth-child(2) {
+          background-color: #AF9070;
+        }
+        
+        .plans-card:nth-child(3) {
+          grid-column: 1 / span 2;
+          padding: 70px 20px;
+          background-color: #252525;
+        //   border: 1px dotted #000;
+          box-sizing: border-box;
+
+          h2,p{
+            color: #ffffff;
+          }
+
+          
+        //   margin-top: 25px;
+        }
+        
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+
+          
+          .plans-card {
+            padding: 90px 50px;
+
+          }
+          
+          .plans-card:nth-child(3) {
+            padding: 111px 80px;
+
+          }
+        }
+      }
+}
+
+
+.poem-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+
+    @media (min-width: 768px){
+        // grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+
+
+.haiku-cont{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-top: 25px;
+    overflow-x: auto;
+    
+
+    transition: all .5s ease;
+
+    @media (min-width: 768px){
+        justify-content: flex-start;
+
+    }
+}

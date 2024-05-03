@@ -1,4 +1,6 @@
 'use client'
+import { setHaiku } from "@/lib/store/slices/haiku.reducer";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 
 import React,{useRef, useEffect, useState} from 'react'
 
@@ -7,6 +9,10 @@ const TopHaiku = ({haikuWallpapers}) => {
     
     const [constStyle, setContStyle] = useState(0)
     const divRef = useRef()
+    const dispatch = useAppDispatch()
+
+
+
     const scroll = (x) => {
 
         // if(divRef.current.scrollWidth > constStyle + x){
@@ -18,6 +24,10 @@ const TopHaiku = ({haikuWallpapers}) => {
         divRef.current.scrollLeft += x
 
     }
+
+    dispatch(setHaiku(haikuWallpapers))
+    // useEffect(() => {
+    // }, [])
 
 
     useEffect(() => {
@@ -53,6 +63,8 @@ const TopHaiku = ({haikuWallpapers}) => {
         };
       }, []); 
 
+      const replaceUnderscore = (str) => str.replace(/_/g, ' ')
+
 
    
 
@@ -78,30 +90,30 @@ const TopHaiku = ({haikuWallpapers}) => {
                     <div className='haiku-card' key={poem.theme} >
                         <div className="border">
 
-                        <div className="heading">
+                            <div className="heading">
 
-                         {poem.theme}
-                        </div>
-                        <div className="inner">
-                            
-                            <div className="big-img">
-                                <img src={poem.wallpapers[0].url} alt="" />
+                                {replaceUnderscore(poem.theme)}
                             </div>
-                            <div className="sml-img">
-                                <div className="img">
-
-                                <img src={poem.wallpapers[1].url} alt="" />
+                            <div className="inner">
+                                
+                                <div className="big-img">
+                                    <img src={poem.wallpapers[0].url} alt="" />
                                 </div>
+                                <div className="sml-img">
+                                    <div className="img">
 
-                                <div className="img-left">
-                                    {poem.wallpapers.length - 2} more
+                                    <img src={poem.wallpapers[1].url} alt="" />
+                                    </div>
+
+                                    <div className="img-left">
+                                        {poem.wallpapers.length - 2} more
+                                    </div>
                                 </div>
                             </div>
+                            <p className='price' >N{addComma(poem.price.toString())}</p>
+                            <button>Buy Now</button>
                         </div>
-                        <p className='price' >N{addComma(poem.price.toString())}</p>
-                        <button>Buy Now</button>
                     </div>
-                        </div>
                 )) }
             </div>
         </div>
