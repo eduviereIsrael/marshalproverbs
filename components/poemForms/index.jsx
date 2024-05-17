@@ -6,8 +6,8 @@ const PoemsForm = () => {
 
     const poemForms = [
         {
-          "name": "Cinquain",
-          "url": "cinquain",
+          "name": "Cinqauin",
+          "url": "cinqauin",
           "image": "cinquain.webp",
           "length": 4
         },

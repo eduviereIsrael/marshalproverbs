@@ -6,6 +6,7 @@ import "./components.scss"
 import { Navbar } from "@/components";
 import StoreProvider from "./StoreProvider";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,10 +21,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-        <div className="app" >
-          <Navbar />
-          {children}
-        </div>
+            <div className="app" >
+              <Navbar />
+              {children}
+              {/* <PaymentOverlay /> */}
+            </div>
         </StoreProvider>
       </body>
     </html>

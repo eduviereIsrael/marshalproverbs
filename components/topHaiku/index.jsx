@@ -1,6 +1,9 @@
 'use client'
 import { setHaiku } from "@/lib/store/slices/haiku.reducer";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { setCartDetails } from "@/lib/store/slices/cart.reducer";
+import { selectCurrentUser } from "@/lib/store/slices/user.reducer";
+import { setCartError } from "@/lib/store/slices/cart.reducer";
 
 import React,{useRef, useEffect, useState} from 'react'
 
@@ -10,6 +13,8 @@ const TopHaiku = ({haikuWallpapers}) => {
     const [constStyle, setContStyle] = useState(0)
     const divRef = useRef()
     const dispatch = useAppDispatch()
+    const currentUser = useAppSelector(selectCurrentUser)
+
 
 
 
@@ -47,23 +52,54 @@ const TopHaiku = ({haikuWallpapers}) => {
         return stringWithComma;
       }
 
-      useEffect(() => {
-        const handleContextMenu = (event) => {
-          event.preventDefault(); // Prevent the default behavior of the context menu
-          // Add your custom logic here
-          // For example, redirecting the user to a different page:
-        };
-    
-        // Add event listener for the contextmenu event when the component mounts
-        document.addEventListener('contextmenu', handleContextMenu);
-    
-        // Cleanup function to remove the event listener when the component unmounts
-        return () => {
-          document.removeEventListener('contextmenu', handleContextMenu);
-        };
-      }, []); 
+    useEffect(() => {
+    const handleContextMenu = (event) => {
+        event.preventDefault(); // Prevent the default behavior of the context menu
+        // Add your custom logic here
+        // For example, redirecting the user to a different page:
+    };
 
-      const replaceUnderscore = (str) => str.replace(/_/g, ' ')
+    // Add event listener for the contextmenu event when the component mounts
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+        document.removeEventListener('contextmenu', handleContextMenu);
+    };
+    }, []); 
+
+    const replaceUnderscore = (str) => str.replace(/_/g, ' ')
+
+    const generateRandomString = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
+    for (let i = 0; i < 10; i++) {
+        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return randomString;
+    };
+    const setNewCart = (price, product, image) => {
+        const paymentID = generateRandomString();
+        const email = currentUser?.email;
+
+        if(!email){
+            dispatch(setCartError('You must be logged in to make this purchase'))
+            return
+
+        }
+
+
+
+        dispatch(setCartDetails({
+            paymentID,
+            email,
+            product,
+            amount: price,
+            image
+        }))
+
+        
+    }
 
 
    
@@ -111,7 +147,7 @@ const TopHaiku = ({haikuWallpapers}) => {
                                 </div>
                             </div>
                             <p className='price' >N{addComma(poem.price.toString())}</p>
-                            <button>Buy Now</button>
+                            <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url)} >Buy Now</button>
                         </div>
                     </div>
                 )) }

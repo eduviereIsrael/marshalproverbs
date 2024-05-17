@@ -31,7 +31,7 @@ async function getData() {
     return data.haikuWallpapers
   }
 
-  console.error("Error fetching Haiku Wallpapers")
+  // console.error("Error fetching Haiku Wallpapers")
 
 }
 
