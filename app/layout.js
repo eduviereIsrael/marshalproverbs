@@ -3,6 +3,7 @@ import "./globals.scss";
 import "./poemspage.styles.scss";
 import "./haikupage.styles.scss";
 import "./components.scss"
+import "./verifypage.scss"
 import { Navbar } from "@/components";
 import StoreProvider from "./StoreProvider";
 

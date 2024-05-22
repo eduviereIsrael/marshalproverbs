@@ -30,9 +30,10 @@ const TopHaiku = ({haikuWallpapers}) => {
 
     }
 
-    dispatch(setHaiku(haikuWallpapers))
-    // useEffect(() => {
-    // }, [])
+    useEffect(() => {
+        console.log(haikuWallpapers)
+        dispatch(setHaiku(haikuWallpapers))
+    }, [dispatch])
 
 
     useEffect(() => {
@@ -52,35 +53,39 @@ const TopHaiku = ({haikuWallpapers}) => {
         return stringWithComma;
       }
 
+    //prevent users from being able to download images without buying them
     useEffect(() => {
-    const handleContextMenu = (event) => {
-        event.preventDefault(); // Prevent the default behavior of the context menu
-        // Add your custom logic here
-        // For example, redirecting the user to a different page:
-    };
+        const handleContextMenu = (event) => {
+            event.preventDefault(); // Prevent the default behavior of the context menu
+            // Add your custom logic here
+            // For example, redirecting the user to a different page:
+        };
 
-    // Add event listener for the contextmenu event when the component mounts
-    document.addEventListener('contextmenu', handleContextMenu);
+        // Add event listener for the contextmenu event when the component mounts
+        document.addEventListener('contextmenu', handleContextMenu);
 
-    // Cleanup function to remove the event listener when the component unmounts
-    return () => {
-        document.removeEventListener('contextmenu', handleContextMenu);
-    };
+        // Cleanup function to remove the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('contextmenu', handleContextMenu);
+        };
     }, []); 
 
     const replaceUnderscore = (str) => str.replace(/_/g, ' ')
 
     const generateRandomString = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let randomString = '';
-    for (let i = 0; i < 10; i++) {
-        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return randomString;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let randomString = '';
+        for (let i = 0; i < 10; i++) {
+            randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return randomString;
     };
-    const setNewCart = (price, product, image) => {
+
+
+    const setNewCart = (price, product, image, id) => {
         const paymentID = generateRandomString();
         const email = currentUser?.email;
+        const category = 'haikuWallpapers'
 
         if(!email){
             dispatch(setCartError('You must be logged in to make this purchase'))
@@ -95,7 +100,9 @@ const TopHaiku = ({haikuWallpapers}) => {
             email,
             product,
             amount: price,
-            image
+            image,
+            category,
+            productId: id
         }))
 
         
@@ -123,7 +130,7 @@ const TopHaiku = ({haikuWallpapers}) => {
             </div>
             <div className="haiku-cont" ref={divRef}  >
                 { haikuWallpapers.map(poem => (
-                    <div className='haiku-card' key={poem.theme} >
+                    <div className='haiku-card' key={poem.id} >
                         <div className="border">
 
                             <div className="heading">
@@ -147,7 +154,7 @@ const TopHaiku = ({haikuWallpapers}) => {
                                 </div>
                             </div>
                             <p className='price' >N{addComma(poem.price.toString())}</p>
-                            <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url)} >Buy Now</button>
+                            <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
                         </div>
                     </div>
                 )) }

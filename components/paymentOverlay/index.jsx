@@ -1,8 +1,8 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Inter } from "next/font/google";
-import { selectCartError } from '@/lib/store/slices/cart.reducer';
+import { getPaymentLink, selectCartError, selectCartIsLoading, selectPaymentLink, selectPaymentStatus, clearOverlay } from '@/lib/store/slices/cart.reducer';
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
 import { useRouter } from 'next/navigation';
 import { selectCartDetails, clearCart } from '@/lib/store/slices/cart.reducer';
@@ -18,7 +18,13 @@ const PaymentOverlay = () => {
 
 
   const cartError = useAppSelector(selectCartError)
-  const {product, amount, image} = useAppSelector(selectCartDetails)
+  const cartDetails = useAppSelector(selectCartDetails)
+  const cartIsLoading = useAppSelector(selectCartIsLoading)
+  const paymentLink = useAppSelector(selectPaymentLink)
+  const paymentStatus = useAppSelector(selectPaymentStatus)
+
+
+  const {product, amount, image} = cartDetails
   const dispatch = useAppDispatch()
 
   const discardCart = () => {
@@ -29,21 +35,44 @@ const PaymentOverlay = () => {
     dispatch(clearCart())
     router.push(url)
   }
+
+  const startPayment = () => {
+    if(paymentLink){
+      router.push(paymentLink)
+      dispatch(clearOverlay())
+    }
+  }
+
+  const openNewTab = (path) => {
+    console.log('open new tab')
+    const url = `${path}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  useEffect(() => {
+    dispatch(getPaymentLink({...cartDetails}))
+  }, [cartDetails, dispatch])
+
+  useEffect(() => {
+    console.log(cartIsLoading)
+  }, [cartIsLoading])
+
   return (
     <div className={`payment-overlay ${inter.className} `} >
         { !cartError? <div className= {`mobile-card ${inter.className} `} >
-              <div className='img' style={{
+              { image && <div className='img' style={{
                 backgroundImage: `url('${image}')`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center center",
-              }} ></div>
+              }} ></div>}
               <h3 className='product' >{product}</h3>
               <p className='price' >you are about to make a NGN{amount} purchase</p>
-              <button>Checkout</button>
+              <button onClick={startPayment} >{cartIsLoading? <span className='spinner' ></span> : "Checkout"}</button>
               <p className='disclaim' >Secured payments with paystack</p>
               <div className='close' onClick = {discardCart} >+</div>
-            </div> : 
+            </div> 
+            : 
             <div className={`${inter.className} mobile-card error`} >
               <h3>{cartError}</h3>
               <button onClick={() => navigate('login')} >Sign In</button>
