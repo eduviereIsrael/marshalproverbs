@@ -75,6 +75,10 @@ const SignUp = () => {
         return 'Email in use, try logging in'
       case "Firebase: Password should be at least 6 characters (auth/weak-password).":
         return 'Password should be at least 6 characters'
+      case 'Failed to get document because the client is offline.':
+        return "Check your internet and try again"
+      case 'Firebase: Error (auth/network-request-failed).':
+        return "Check your internet and try again"
       default:
         return error
     }

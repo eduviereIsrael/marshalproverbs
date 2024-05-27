@@ -52,6 +52,10 @@ const Login = () => {
         return 'Wrong password'
       case "No email or password":
         return 'Check your email/password'
+      case 'Failed to get document because the client is offline.':
+        return "Check your internet and try again"
+      case 'Firebase: Error (auth/network-request-failed).':
+        return "Check your internet and try again"
       default:
         return error
     }

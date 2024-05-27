@@ -114,6 +114,63 @@
         background-color: #F3F3F3;
         // background-color: #a62b2b;
 
+        .user-menu{
+            position: relative;
+            .user-tag{
+                border-radius: 40px;
+                padding: 2px;
+                border: 1px solid #000;
+                .user-icon{
+                    color: #fff;
+                    width: 25px;
+                    height: 25px;
+                    background-color: #000000;
+                    border-radius: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 13px;
+                }
+            }
+
+            .user-links{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;    
+                justify-content: flex-start;
+                background-color: #ffffff;
+                // padding: 15px ;
+                // gap: 6px;
+                // border: 0.5px solid #c8c8c8;
+                border-radius: 5px;
+                position: absolute;
+                top: 40px;
+                right: 0;
+
+                span{
+                    color: #000000;
+                    width: 100%;
+                    background-color: transparent;
+                    padding: 12px 25px;
+                    border: 0.5px solid #c8c8c800;
+                    transition: all .5s ease;
+                    // height: 60px;
+                    
+
+
+                    &:hover{
+                        cursor: pointer;
+                        // background-color: #f4f4f4;
+                        border: 0.5px solid #bbbbbb;
+
+
+
+                    }
+                    
+                }
+            }
+        }
+
     
         .menuitems{
             display: flex;

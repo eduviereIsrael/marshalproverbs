@@ -29,6 +29,8 @@ const ConfirmPayment = () => {
     if(payemntStatus === "completed"){
       if(id && category && productId){
         dispatch(updateUserPurchase({userId: id, category, productId}))
+      } else {
+        console.log("something is wrong")
       }
     }
   }, [payemntStatus, category, dispatch, productId, id])

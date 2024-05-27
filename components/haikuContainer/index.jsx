@@ -1,8 +1,19 @@
 'use client'
+import { setHaiku } from "@/lib/store/slices/haiku.reducer";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { setCartDetails } from "@/lib/store/slices/cart.reducer";
+import { selectCurrentUser } from "@/lib/store/slices/user.reducer";
+import { setCartError } from "@/lib/store/slices/cart.reducer";
 
-import React from 'react'
+import React,{useRef, useEffect, useState} from 'react'
 
 const HaikuContainer = ({haikuWallpapers}) => {
+
+
+    const [constStyle, setContStyle] = useState(0)
+    const divRef = useRef()
+    const dispatch = useAppDispatch()
+    const currentUser = useAppSelector(selectCurrentUser)
 
     const replaceUnderscore = (str) => str.replace(/_/g, ' ')
 
@@ -17,6 +28,43 @@ const HaikuContainer = ({haikuWallpapers}) => {
       
         return stringWithComma;
       }
+    
+      const generateRandomString = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let randomString = '';
+        for (let i = 0; i < 10; i++) {
+            randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return randomString;
+    };
+
+
+    const setNewCart = (price, product, image, id) => {
+        const paymentID = generateRandomString();
+        const email = currentUser?.email;
+        const category = 'haikuWallpapers'
+
+        if(!email){
+            dispatch(setCartError('You must be logged in to make this purchase'))
+            return
+
+        }
+
+
+
+        dispatch(setCartDetails({
+            paymentID,
+            email,
+            product,
+            amount: price,
+            image,
+            category,
+            productId: id
+        }))
+
+        
+    }
+
       
   return (
     <div className="haiku-cont"   >
@@ -45,7 +93,9 @@ const HaikuContainer = ({haikuWallpapers}) => {
                     </div>
                 </div>
                 <p className='price' >N{addComma(poem.price.toString())}</p>
-                <button>Buy Now</button>
+                {/* <button>Buy Now</button> */}
+                <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
+
             </div>
                 </div>
         )) }

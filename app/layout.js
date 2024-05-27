@@ -1,9 +1,10 @@
 import { Inter } from "next/font/google";
-import "./globals.scss";
 import "./poemspage.styles.scss";
 import "./haikupage.styles.scss";
 import "./components.scss"
 import "./verifypage.scss"
+import "./dashboard.scss";
+import "./globals.scss";
 import { Navbar } from "@/components";
 import StoreProvider from "./StoreProvider";
 

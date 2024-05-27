@@ -13,6 +13,7 @@ import { selectPaymentOverlay } from '@/lib/store/slices/cart.reducer';
 const Navbar = () => {
 
   const [navClick, setNavClick] = useState(false)
+  const [userNavClick, setUserNavClick] = useState(false)
 
   const router = useRouter()
 
@@ -49,7 +50,18 @@ const Navbar = () => {
             <Link href={'/signup'} >
               <span className='sign-up' >SIGN UP</span>
             </Link>
-            </div> : <h3 onClick={signOutHandler} >Logged in</h3>
+            </div> : <div className='user-menu' >
+              <div className="user-tag" onClick={() => setUserNavClick((prev) => !prev)} >
+                <div className="user-icon">{currentUser?.fullName[0].toUpperCase()}</div>
+              </div>
+
+             { userNavClick &&  <div className="user-links" onClick={() => setUserNavClick(false)} >
+                <Link href={'/dashboard'} style={{padding: '0', margin: '12px 0 15px'}} >
+                  <span>Dashboard</span>
+                </Link>
+                <span onClick={signOutHandler} >Logout</span>
+              </div>}
+            </div>
         }
       </ div >
       <  div className='MobileContainer'>
@@ -75,7 +87,11 @@ const Navbar = () => {
             <Link href={'/signup'} >
               <span className='sign-up' onClick={() => setNavClick(false)} >SIGN UP</span>
             </Link>
-            </div> : <h3 onClick={signOutHandler} >Logged in</h3>
+            </div> : < >
+            <a href='/dashboard'>Dashboard</a>
+            <a href='' onClick={signOutHandler} >Logout</a>
+
+            </>
         }
           </div>
       </div>
