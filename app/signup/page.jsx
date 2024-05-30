@@ -40,7 +40,10 @@ const SignUp = () => {
     const { email, password, confirmPassword, fullName } = userDetails;
     
     const newUser = {
-      sub: 'Starter',
+      sub: {
+        plan: 'Starter',
+        id: null
+      },
       fullName: fullName,
       purchases: {
         poems: [],
