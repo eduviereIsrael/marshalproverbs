@@ -31,16 +31,12 @@ const Navbar = ({data}) => {
   const signOutHandler = () => dispatch(signOut())
 
   useEffect(() => {
-    if(!poemsListed.length){
       dispatch(setAllPoems(data.poems))
-    }
-  }, [])
+  }, [data.poems, dispatch, poemsListed.length])
 
   useEffect(() => {
-    if(!haikuListed.length){
       dispatch(setHaiku(data.haikuWallpapers))
-    }
-  }, [])
+  }, [dispatch, data.haikuWallpapers])
 
   useEffect(() => {
     if(!currentUser){
