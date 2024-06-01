@@ -1,11 +1,12 @@
 "use client"
 
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { selectCurrentUser, selectUserIsLoading } from "@/lib/store/slices/user.reducer";
-import { purchasedHaikuSelector } from '@/lib/store/slices/haiku.reducer';
+import { purchasedHaikuSelector, allHaikuSelector, fetchPurchasedHaikus, haikuIsLoadingSelector } from '@/lib/store/slices/haiku.reducer';
 import { Inter } from "next/font/google";
-// import HaikuContainer from '@/components/haikuContainer';
+import { selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
+import { PoemsContainer } from '@/components';
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -17,7 +18,7 @@ const HaikuContainer = ({haikuWallpapers}) => {
   const dispatch = useAppDispatch()
   const currentUser = useAppSelector(selectCurrentUser)
 
-  const replaceUnderscore = (str) => str.replace(/_/g, ' ')
+  const replaceUnderscore = (str) => str?.replace(/_/g, ' ')
 
   const addComma = (string) => {
       // Check if the string has at least 3 characters
@@ -59,50 +60,80 @@ const HaikuContainer = ({haikuWallpapers}) => {
   }
 
     
-return (
-  <div className="haiku-cont"   >
-      { haikuWallpapers.map(poem => (
-          <div className='haiku-card' key={poem.theme} >
-              <div className="border">
+  return (
+    <div className="haiku-cont"   >
+        { haikuWallpapers?.map(poem => (
+            <div className='haiku-card' key={poem.theme} >
+                <div className="border">
 
-              <div className="heading">
+                <div className="heading">
 
-                  {replaceUnderscore(poem.theme)}
-              </div>
-              <div className="inner">
-                  
-                  <div className="big-img">
-                      <img src={poem.wallpapers[0].url} alt="" />
-                  </div>
-                  <div className="sml-img">
-                      <div className="img">
+                    {replaceUnderscore(poem.theme)}
+                </div>
+                <div className="inner">
+                    
+                    <div className="big-img">
+                        <img src={poem?.wallpapers[0]?.url && poem?.wallpapers[0]?.url} alt="" />
+                    </div>
+                    <div className="sml-img">
+                        <div className="img">
 
-                      <img src={poem.wallpapers[1].url} alt="" />
-                      </div>
+                        <img src={poem?.wallpapers[1]?.url && poem?.wallpapers[1]?.url} alt="" />
+                        </div>
 
-                      <div className="img-left">
-                          {poem.wallpapers.length - 2} more
-                      </div>
-                  </div>
-              </div>
-              <p className='price' ></p>
-              {/* <button>Buy Now</button> */}
-              <button onClick={() => downloadImages(poem.wallpapers, poem.theme)} >Download {poem.wallpapers.length}</button>
+                        <div className="img-left">
+                            {poem.wallpapers.length - 2} more
+                        </div>
+                    </div>
+                </div>
+                <p className='price' ></p>
+                {/* <button>Buy Now</button> */}
+                <button onClick={() => downloadImages(poem.wallpapers, poem.theme)} >Download {poem.wallpapers.length}</button>
 
-          </div>
-              </div>
-      )) }
-  </div>
-)
+            </div>
+                </div>
+        )) }
+    </div>
+  )
 }
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch()
 
   const currentUser = useAppSelector(selectCurrentUser)
   const userIsLoading = useAppSelector(selectUserIsLoading)
   const purchasedHaiku = useAppSelector(purchasedHaikuSelector)
+  const allHaiku = useAppSelector(allHaikuSelector)
+  const allPoems = useAppSelector(selectAllPoemsReducer)
+  const purchasedHaikuIsLoading = useAppSelector(haikuIsLoadingSelector)
+
+  const plan = currentUser?.sub?.plan
 
   const { fullName } = currentUser? currentUser : false
+
+  const paidWallpapers = currentUser?.purchases?.haikuWallpapers
+
+  const [displayedCategory, setDisplayedCategory] = useState("haiku")
+
+
+  const getPoemsByPlan = (plan, poems) => {
+    switch (plan) {
+        case 'gold':
+            return poems?.filter(poem => poem.subscriptionPlan.toLowerCase() == 'gold');
+        case 'platinum':
+            return poems?.filter(poem => poem.subscriptionPlan.toLowerCase() == 'gold' || poem.subscriptionPlan.toLowerCase() == 'platinum');
+        case 'supernova':
+            return poems?.filter(poem => poem.subscriptionPlan.toLowerCase() == 'gold' || poem.subscriptionPlan.toLowerCase() == 'platinum' || poem.subscriptionPlan.toLowerCase() == 'supernova' );
+        default:
+            return [];
+    }
+};
+  const displayHaiku = purchasedHaiku?.length && displayedCategory === "haiku"
+
+  const displayPoems = displayedCategory === "poems" && plan
+
+
+
 
   return (
     <div className='user-dashboard' >
@@ -111,12 +142,18 @@ const Dashboard = () => {
           <h3>Hi {currentUser?.fullName}</h3>
           <div className="purchases-cont">
             <div className="filter">
-              <span>Haiku</span>
+              <span onClick = {() => setDisplayedCategory("haiku")} >Haiku Wallpapers</span>
+              <span onClick = {() => {
+                setDisplayedCategory("poems")
+                }}  >Poems</span>
               {/* <span>Poems</span> */}
             </div>
-            { purchasedHaiku.length && <HaikuContainer haikuWallpapers={purchasedHaiku} /> }
+            { displayHaiku && <HaikuContainer haikuWallpapers={purchasedHaiku}  /> }
+            { purchasedHaikuIsLoading && <span className= "spinner dark" ></span> }
+            { !purchasedHaikuIsLoading && !purchasedHaiku.length? <h5>No purchased haiku wallpaper to download currently</h5> : '' }
+            { displayPoems && <PoemsContainer poems = {getPoemsByPlan( plan.toLowerCase(), allPoems)} color = "#000" download = {true} /> }
           </div>
-        </div>}
+        </div> }
         { userIsLoading && <span className='spinner dark' ></span> }
         { !userIsLoading && !currentUser? <div className="error">Sign in to view your purchases</div> : '' }
       </div>

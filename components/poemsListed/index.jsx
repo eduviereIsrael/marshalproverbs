@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { useAppSelector } from '@/lib/store/hooks';
 import { selectAllPoemsReducer } from '@/lib/store/slices/poems.reducer'
 
-const PoemsListed = () => {
+const PoemsListed = ({poemsIndex}) => {
 
     // const poems = [
     //     // { title: 'Melody of the Soul', subscriptionPlan: 'Gold' }
@@ -35,7 +35,7 @@ const PoemsListed = () => {
 
             <div className="poem-container">
             {
-                poems.map((poem, i) => (
+                poems?.map((poem, i) => (
                     <PoemCard key={i} poem={poem} />
                 ))
             }

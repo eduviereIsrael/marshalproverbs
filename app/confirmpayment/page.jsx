@@ -2,9 +2,10 @@
 "use client"
 import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks'
-import { selectCartDetails, verifypayments, selectPaymentStatus, selectverifyIsLoading } from '@/lib/store/slices/cart.reducer'
+import { selectCartDetails, verifypayments, selectPaymentStatus, selectverifyIsLoading, subscribeUser } from '@/lib/store/slices/cart.reducer'
 import {selectCurrentUser, updateUserPurchase } from '@/lib/store/slices/user.reducer'
 import { useSearchParams } from 'next/navigation' 
+import e from 'cors'
 
 
 const ConfirmPayment = () => {
@@ -18,6 +19,7 @@ const ConfirmPayment = () => {
   const currentUser = useAppSelector(selectCurrentUser)
 
   const id = currentUser?.id
+  const email = currentUser?.email
 
   useEffect(() => {
     if(reference){
@@ -25,15 +27,41 @@ const ConfirmPayment = () => {
     }
   }, [])
 
+  const getPlanCode = (plan) => {
+    switch (plan) {
+      case "GOLD":
+        return "PLN_kd5b8j7whiwuc00"
+      case "PLATINUM":
+        return "PLN_1rjwfbimqvkx9sq"
+      case "SUPERNOVA":
+        return "PLN_5nro0jaynpiges9"
+      default:
+        return ""
+    }
+  }
+
   useEffect(() => {
     if(payemntStatus === "completed"){
-      if(id && category && productId){
+      if(category === "sub" ){
+
+        if(email){
+          const planCode = getPlanCode(productId)
+          const details = {
+            email: email,
+            planCode: planCode,
+            productId: productId,
+            userId: id
+          }
+          dispatch(subscribeUser(details))
+        }
+        return
+      }else if(id && category && productId){
         dispatch(updateUserPurchase({userId: id, category, productId}))
       } else {
         console.log("something is wrong")
       }
     }
-  }, [payemntStatus, category, dispatch, productId, id])
+  }, [payemntStatus, category, dispatch, productId, id, email])
   return (
     <div className='confirm-payment' >
         <div className="container">
@@ -42,8 +70,8 @@ const ConfirmPayment = () => {
               <p>Your purchase has been processed successfully</p>
             </div> : ''}
             { payemntStatus === "failed" && <div className="failed">
-              <h1>Payment Failed</h1>
-              <p>Your payment has failed</p>
+              <h1>Verification Failed</h1>
+              <p>Verification Failed, check your network and refresh the page</p>
             </div> }
             { verifyIsLoading && <div className="pending">
               <h2>Kindly Hold on as we process your payments</h2>

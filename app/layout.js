@@ -5,7 +5,7 @@ import "./components.scss"
 import "./verifypage.scss"
 import "./dashboard.scss";
 import "./globals.scss";
-import { Navbar } from "@/components";
+import { App } from "@/components";
 import StoreProvider from "./StoreProvider";
 
 
@@ -24,8 +24,10 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <StoreProvider>
             <div className="app" >
-              <Navbar />
-              {children}
+              <App>
+
+                {children}
+              </App>
               {/* <PaymentOverlay /> */}
             </div>
         </StoreProvider>

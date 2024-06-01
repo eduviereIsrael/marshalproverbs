@@ -1,4 +1,5 @@
 export {default as Navbar} from "./Navbar";
+export {default as App} from "./app";
 export { default as WeeklyPoems } from "./weeklyPoems"
 export { default as TopHaiku } from "./topHaiku"
 export { default as PoemsListed } from "./poemsListed"

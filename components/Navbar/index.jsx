@@ -8,9 +8,11 @@ import { selectCurrentUser, signOut } from '@/lib/store/slices/user.reducer';
 import { signInAtFirstRender } from '@/lib/store/slices/user.reducer'; 
 import { PaymentOverlay } from '..';
 import { selectPaymentOverlay } from '@/lib/store/slices/cart.reducer';
+import { setAllPoems, selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
+import { allHaikuSelector, setHaiku } from "@/lib/store/slices/haiku.reducer"
 
 
-const Navbar = () => {
+const Navbar = ({data}) => {
 
   const [navClick, setNavClick] = useState(false)
   const [userNavClick, setUserNavClick] = useState(false)
@@ -23,11 +25,30 @@ const Navbar = () => {
 
   const dispatch = useAppDispatch()
 
+  const poemsListed = useAppSelector(selectAllPoemsReducer)
+  const haikuListed = useAppSelector(allHaikuSelector)
+
   const signOutHandler = () => dispatch(signOut())
 
   useEffect(() => {
-    dispatch(signInAtFirstRender())
+    if(!poemsListed.length){
+      dispatch(setAllPoems(data.poems))
+    }
   }, [])
+
+  useEffect(() => {
+    if(!haikuListed.length){
+      dispatch(setHaiku(data.haikuWallpapers))
+    }
+  }, [])
+
+  useEffect(() => {
+    if(!currentUser){
+      dispatch(signInAtFirstRender())
+    }
+  }, [currentUser, dispatch])
+
+ 
 
   return (
     < div className= 'NavbarDiv'>

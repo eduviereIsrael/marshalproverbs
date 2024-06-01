@@ -42,6 +42,8 @@ const PoemsPage = () => {
     }
   }, [selectFormHandler, form])
 
+  const replaceUnderscore = (str) => str.replace(/_/g, ' ')
+
   return (
     <div className='poems-page' >
         <div className="container">
@@ -52,7 +54,7 @@ const PoemsPage = () => {
               {
                
               
-                forms.map(form => (<span key={form} style={selectedForm.toLowerCase() === form.toLowerCase()? {...pickedStyle} : {}} onClick={() => selectFormHandler(form)} >{form}</span>))
+                forms.map(form => (<span key={form} style={selectedForm.toLowerCase() === form.toLowerCase()? {...pickedStyle} : {}} onClick={() => selectFormHandler(form)} >{replaceUnderscore(form)}</span>))
               }
             </div>
             { selectedForm === 'All'? <PoemsContainer poems={poems} color='black' /> :  filteredPoems.length && <PoemsContainer poems={filteredPoems} color='black' />}

@@ -1,13 +1,13 @@
 "use client";
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import PoemCard from '../poemCard';
 import { useAppSelector } from '@/lib/store/hooks';
 
 
 
-const WeeklyPoems = () => {
+const WeeklyPoems = ({poemsIndex}) => {
 
   // const poems = [
   //   { title: 'Melody of the Soul', subscriptionPlan: 'Gold' },
@@ -16,6 +16,10 @@ const WeeklyPoems = () => {
   //   { title: 'Whispers in the Night', subscriptionPlan: 'Supernova' },
   //   // { title: 'Melody of the Soul', subscriptionPlan: 'Gold' }
   // ]
+
+  useEffect(() => {
+    console.log(poemsIndex)
+  }, [poemsIndex])
 
   const poems = useAppSelector((state) => state.poems.weeklyPoems)
   
@@ -29,7 +33,7 @@ const WeeklyPoems = () => {
 
       <div className="poem-container">
         {
-          poems.map((poem) => (
+          poemsIndex.slice(3, 7).map((poem) => (
             <PoemCard key={poem.title} poem={poem} />
           ))
         }

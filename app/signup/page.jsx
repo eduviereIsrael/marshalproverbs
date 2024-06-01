@@ -165,7 +165,7 @@ const SignUp = () => {
             {/* {errorMessage && <p style={{width: "100%", textAlign: "right", fontSize: "12px", color: "#F0263C"}} >{errorMessage}</p>} */}
             { errBorder && <p style={{width: "100%", textAlign: "left", fontSize: "12px", color: "#F0263C"}} >{getErrors(userError)}</p>}
 
-            <button className='link-button' type='submit' >Sign Up</button>
+            <button className='link-button' type='submit' > {userIsLoading? <span className='spinner' ></span> : 'Sign Up'} </button>
           </form>
 
 

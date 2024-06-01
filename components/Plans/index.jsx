@@ -24,7 +24,7 @@ const Plans = () => {
   const setNewCart = (price, product, image, id) => {
     const paymentID = generateRandomString();
     const email = currentUser?.email;
-    const category = 'haikuWallpapers'
+    const category = 'sub'
 
     if(!email){
         dispatch(setCartError('You must be logged in to make this purchase'))
@@ -78,7 +78,7 @@ const Plans = () => {
               <p>Access to over 30+ poems </p>
               <div className="card-cta">
               <a onClick={() => {
-                  setNewCart(10000, 'SUPERNOVA subscription', '/supernova.png', 'SUPERNOVA')
+                  setNewCart(25000, 'SUPERNOVA subscription', '/supernova.png', 'SUPERNOVA')
                 }} >Subscribe</a>
                 <p>N25000 per month</p>
               </div>

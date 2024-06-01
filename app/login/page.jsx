@@ -38,7 +38,7 @@ const Login = () => {
       dispatch(setUserError("No email or password"))
       return;
     }
-    console.log(userDetails)
+    // console.log(userDetails)
     dispatch(signInUser({email, password}))
 
   }

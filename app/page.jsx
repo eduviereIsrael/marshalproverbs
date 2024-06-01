@@ -2,6 +2,7 @@
 import { Plans, PoemsForm, PoemsListed, TopHaiku, WeeklyPoems } from "@/components";
 import { Inter } from "next/font/google";
 import {GraphQLClient, gql} from 'graphql-request';
+import { useDispatch } from 'react-redux'
 
 // import { useEffect } from "react";
 
@@ -12,15 +13,42 @@ import {GraphQLClient, gql} from 'graphql-request';
 
 const QUERY = gql `
 {
-  haikuWallpapers {
-    theme
+  poems {
+    form
     id
+    title
+    subscriptionPlan
+    poemFile {
+      id
+      url
+    }
+  }
+  haikuWallpapers {
+    id
+    price
+    theme
     wallpapers {
       id
       url
     }
-    price
   }
+}
+`;
+
+
+
+const QUERYPOEM = gql `
+{
+    poems {
+        id
+        title
+        subscriptionPlan
+        price
+        poemFile {
+          id
+          url
+        }
+      }
 }
 `;
 
@@ -29,16 +57,28 @@ const graphCms = new GraphQLClient("https://api-eu-west-2.hygraph.com/v2/clrduuy
 async function getData() {
   const data = await graphCms.request(QUERY);
   if(data?.haikuWallpapers){
-    return data.haikuWallpapers
+    return { haikuWallpapers: data.haikuWallpapers, poems: data.poems, data: data}
   }
 
   // console.error("Error fetching Haiku Wallpapers")
 
 }
 
+
+async function getPoemData() {
+  const data = await graphCms.request(QUERYPOEM);
+  if(data?.poems){
+    return data
+  }
+
+  // console.error("Error fetching Haiku Wallpapers")
+
+}
 export default async function Home() {
 
-  const haikuWallpapers = await getData()
+  const {haikuWallpapers, data, poems} = await getData()
+  // const poems = getPoemData()
+
 
 
   // useEffect(() => {
@@ -63,9 +103,9 @@ export default async function Home() {
         <img src="/hero-bg.webp" className="desktop" />
         <img src="/mobile-hero.webp" className="mobile" />
       </div>
-      <WeeklyPoems/>
+      <WeeklyPoems poemsIndex = {poems} />
       <TopHaiku haikuWallpapers={haikuWallpapers} />
-      <PoemsListed />
+      <PoemsListed poemsIndex = {poems}  />
       <PoemsForm />
       <Plans/>
     </main>

@@ -1,9 +1,9 @@
 'use client'
-import { setHaiku } from "@/lib/store/slices/haiku.reducer";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { setCartDetails } from "@/lib/store/slices/cart.reducer";
 import { selectCurrentUser } from "@/lib/store/slices/user.reducer";
 import { setCartError } from "@/lib/store/slices/cart.reducer";
+import { allHaikuSelector, setHaiku } from "@/lib/store/slices/haiku.reducer"
 
 import React,{useRef, useEffect, useState} from 'react'
 
@@ -14,7 +14,7 @@ const TopHaiku = ({haikuWallpapers}) => {
     const divRef = useRef()
     const dispatch = useAppDispatch()
     const currentUser = useAppSelector(selectCurrentUser)
-
+    const haikuListed = useAppSelector(allHaikuSelector)
 
 
 
@@ -30,10 +30,10 @@ const TopHaiku = ({haikuWallpapers}) => {
 
     }
 
-    useEffect(() => {
-        console.log(haikuWallpapers)
-        dispatch(setHaiku(haikuWallpapers))
-    }, [dispatch])
+    // useEffect(() => {
+    //     console.log(haikuWallpapers)
+    //     dispatch(setHaiku(haikuWallpapers))
+    // }, [dispatch])
 
 
     useEffect(() => {
@@ -129,7 +129,7 @@ const TopHaiku = ({haikuWallpapers}) => {
             </div>
             </div>
             <div className="haiku-cont" ref={divRef}  >
-                { haikuWallpapers.map(poem => (
+                { haikuListed?.map(poem => (
                     <div className='haiku-card' key={poem.id} >
                         <div className="border">
 
