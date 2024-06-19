@@ -64,15 +64,15 @@ const Login = () => {
   
   useEffect(() => {
     if(userError){
-      console.log(getErrors(userError))
+      // console.log(getErrors(userError))
       setErrBorder(true)
 
     }
   }, [userError])
 
-  useEffect(() => {
-    console.log(userIsLoading)
-  }, [userIsLoading])
+  // useEffect(() => {
+  //   console.log(userIsLoading)
+  // }, [userIsLoading])
 
   useEffect(() => {
     const timeOut = setTimeout(() => {

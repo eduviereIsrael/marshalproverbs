@@ -17,9 +17,9 @@ const WeeklyPoems = ({poemsIndex}) => {
   //   // { title: 'Melody of the Soul', subscriptionPlan: 'Gold' }
   // ]
 
-  useEffect(() => {
-    console.log(poemsIndex)
-  }, [poemsIndex])
+  // useEffect(() => {
+  //   console.log(poemsIndex)
+  // }, [poemsIndex])
 
   const poems = useAppSelector((state) => state.poems.weeklyPoems)
   

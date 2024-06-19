@@ -42,13 +42,25 @@ const HaikuContainer = ({haikuWallpapers}) => {
     const setNewCart = (price, product, image, id) => {
         const paymentID = generateRandomString();
         const email = currentUser?.email;
+        const purchasedWallpapers = [...currentUser?.purchases.haikuWallpapers]
         const category = 'haikuWallpapers'
+        // console.log(purchasedWallpapers, id)
 
         if(!email){
-            dispatch(setCartError('You must be logged in to make this purchase'))
+            dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
+
             return
 
         }
+
+        if(purchasedWallpapers.includes(id)){
+            // console.log(purchasedWallpapers, id)
+            // console.log(purchasedWallpapers, id)
+            dispatch(setCartError({error: 'You already own this wallpaper', link: "dashboard"}))
+            return
+        }
+
+
 
 
 
@@ -64,6 +76,7 @@ const HaikuContainer = ({haikuWallpapers}) => {
 
         
     }
+
 
       
   return (
@@ -92,9 +105,9 @@ const HaikuContainer = ({haikuWallpapers}) => {
                         </div>
                     </div>
                 </div>
-                <p className='price' >N{addComma(poem.price.toString())}</p>
+                <p className='price' >${addComma((poem.wallpapers.length * 5).toString())}</p>
                 {/* <button>Buy Now</button> */}
-                <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
+                <button onClick={() => setNewCart((poem.wallpapers.length * 5), `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
 
             </div>
                 </div>

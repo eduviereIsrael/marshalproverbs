@@ -24,12 +24,18 @@ const Plans = () => {
   const setNewCart = (price, product, image, id) => {
     const paymentID = generateRandomString();
     const email = currentUser?.email;
+    const sub = currentUser.sub.plan
     const category = 'sub'
 
     if(!email){
-        dispatch(setCartError('You must be logged in to make this purchase'))
+        dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
         return
 
+    }
+
+    if(sub.toLowerCase() === id.toLowerCase()){
+      dispatch(setCartError({error: 'You are already subscribed to this plan', link: "dashboard"}))
+      return
     }
 
 
@@ -58,9 +64,9 @@ const Plans = () => {
               <p>Access to over 20+ poems </p>
               <div className="card-cta">
                 <a onClick={() => {
-                  setNewCart(10000, 'GOLD subscription', '/gold.png', 'GOLD')
+                  setNewCart(499, 'GOLD subscription', '/gold.png', 'GOLD')
                 }} >Subscribe</a>
-                <p>N10000 per month</p>
+                <p>$499 per month</p>
               </div>
              </div>
              <div className="plans-card">
@@ -68,9 +74,9 @@ const Plans = () => {
               <p>Access to over 30+ poems, and everything on GOLD </p>
               <div className="card-cta">
               <a onClick={() => {
-                  setNewCart(15000, 'PLATINUM subscription', '/platinum.png', 'PLATINUM')
+                  setNewCart(999, 'PLATINUM subscription', '/platinum.png', 'PLATINUM')
                 }} >Subscribe</a>
-                <p>N15000 per month</p>
+                <p>$999 per month</p>
               </div>
              </div>
              <div className="plans-card">
@@ -78,9 +84,9 @@ const Plans = () => {
               <p>Access to over 30+ poems </p>
               <div className="card-cta">
               <a onClick={() => {
-                  setNewCart(25000, 'SUPERNOVA subscription', '/supernova.png', 'SUPERNOVA')
+                  setNewCart(1499, 'SUPERNOVA subscription', '/supernova.png', 'SUPERNOVA')
                 }} >Subscribe</a>
-                <p>N25000 per month</p>
+                <p>$1499 per month</p>
               </div>
              </div>
              

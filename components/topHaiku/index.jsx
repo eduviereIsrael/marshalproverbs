@@ -85,13 +85,22 @@ const TopHaiku = ({haikuWallpapers}) => {
     const setNewCart = (price, product, image, id) => {
         const paymentID = generateRandomString();
         const email = currentUser?.email;
+        const purchasedWallpapers = [...currentUser?.purchases.haikuWallpapers]
         const category = 'haikuWallpapers'
 
         if(!email){
-            dispatch(setCartError('You must be logged in to make this purchase'))
+            dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
+
             return
 
         }
+
+        if(purchasedWallpapers.includes(id)){
+            dispatch(setCartError({error: 'You already own this wallpaper', link: "dashboard"}))
+            return
+        }
+
+
 
 
 
@@ -153,8 +162,8 @@ const TopHaiku = ({haikuWallpapers}) => {
                                     </div>
                                 </div>
                             </div>
-                            <p className='price' >N{addComma(poem.price.toString())}</p>
-                            <button onClick={() => setNewCart(poem.price, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
+                            <p className='price' >${addComma((poem.wallpapers.length * 5).toString())}</p>
+                            <button onClick={() => setNewCart(poem.wallpapers.length * 5, `${poem.theme} theme haiku wallpapers `, poem.wallpapers[0].url, poem.id)} >Buy Now</button>
                         </div>
                     </div>
                 )) }

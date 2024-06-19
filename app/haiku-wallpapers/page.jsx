@@ -13,6 +13,7 @@ const QUERY = gql `
 {
   haikuWallpapers {
     theme
+    id
     wallpapers {
       id
       url
