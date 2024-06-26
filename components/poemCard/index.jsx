@@ -19,8 +19,20 @@ const PoemCard = ({poem, color, download}) => {
     supernova: [1499, 'SUPERNOVA subscription', '/supernova.png', 'SUPERNOVA']
   }
 
+  const generateRandomString = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
+    for (let i = 0; i < 10; i++) {
+        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return randomString;
+  };
+
   const handlePoemSubscription = (plan) => {
     const email = currentUser?.email;
+    const sub = currentUser.sub.plan
+    const category = 'sub'
+    const paymentID = generateRandomString();
 
     if(!email){
         dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
@@ -29,10 +41,20 @@ const PoemCard = ({poem, color, download}) => {
     }
     
     if (plan.toLowerCase() === 'exclusive'){
-      console.log("It's exclusive")
+      dispatch(setCartError({ error: "Contact us for enquiries on Exclusive poems", link: "contact"}))
 
       return
     }
+
+    dispatch(setCartDetails({
+      paymentID,
+      email,
+      product:plans[plan][1],
+      amount: plans[plan][0],
+      image:plans[plan][2],
+      category,
+      productId: plans[plan][3],
+  }))
 
   }
 
@@ -40,7 +62,7 @@ const PoemCard = ({poem, color, download}) => {
     <div className='poem-card' style={{ borderColor: color? color : '' }} >
       <PlanTag plan={subscriptionPlan} />
       <p style={{ color: color? color: '' }} >{title}</p>
-      { !download? <button style={{ borderColor: color? color : '',  color: color? color: ''  }} onClick={() => console.log(plans[subscriptionPlan.toLowerCase()])} >Get poem</button> : 
+      { !download? <button style={{ borderColor: color? color : '',  color: color? color: ''  }} onClick={() => handlePoemSubscription(subscriptionPlan.toLowerCase())} >Get poem</button> : 
       <a href={poemFile.url} target='_blank' style={{ borderColor: color? color : '',  color: color? color: ''  }} >Download</a>}
     </div>
   )

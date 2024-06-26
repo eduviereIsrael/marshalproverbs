@@ -4,8 +4,8 @@ import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
-import { selectCurrentUser, signOut } from '@/lib/store/slices/user.reducer';
-import { signInAtFirstRender } from '@/lib/store/slices/user.reducer'; 
+import { selectCurrentUser, signOut, selectClearDate } from '@/lib/store/slices/user.reducer';
+import { signInAtFirstRender, checkSub } from '@/lib/store/slices/user.reducer'; 
 import { PaymentOverlay } from '..';
 import { selectPaymentOverlay } from '@/lib/store/slices/cart.reducer';
 import { setAllPoems, selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
@@ -21,6 +21,7 @@ const Navbar = ({data}) => {
 
   const navigate = (url) => router.push(url)
   const currentUser = useAppSelector(selectCurrentUser)
+  const clearDate = useAppSelector(selectClearDate)
   const paymentOverlay = useAppSelector(selectPaymentOverlay)
 
   const dispatch = useAppDispatch()
@@ -39,8 +40,30 @@ const Navbar = ({data}) => {
   }, [dispatch, data.haikuWallpapers])
 
   useEffect(() => {
-    if(!currentUser){
+    const isDatePastOrFuture = (dateString) => {
+      if(!dateString){
+        return "past"
+      }
+      const inputDate = new Date(dateString);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Ignore the time part for accurate comparison
+      if (inputDate < today) {
+        return 'past';
+        
+      } else if (inputDate > today) {
+        return 'future';
+      } else {
+        return 'today';
+      }
+    };
+
+
+    if(isDatePastOrFuture(clearDate) == "past"){
       dispatch(signInAtFirstRender())
+    } else {
+      if(currentUser){
+        dispatch(checkSub({userId: currentUser.id, id: currentUser.sub.id}))
+      }
     }
   }, [currentUser, dispatch])
 

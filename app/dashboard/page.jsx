@@ -2,7 +2,7 @@
 
 import React, {useState, useRef, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { selectCurrentUser, selectUserIsLoading } from "@/lib/store/slices/user.reducer";
+import { selectCurrentUser, selectUserIsLoading, selectClearDate } from "@/lib/store/slices/user.reducer";
 import { purchasedHaikuSelector, allHaikuSelector, fetchPurchasedHaikus, haikuIsLoadingSelector } from '@/lib/store/slices/haiku.reducer';
 import { Inter } from "next/font/google";
 import { selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
@@ -101,6 +101,7 @@ const Dashboard = () => {
   const dispatch = useAppDispatch()
 
   const currentUser = useAppSelector(selectCurrentUser)
+  const clearDate = useAppSelector(selectClearDate)
   const userIsLoading = useAppSelector(selectUserIsLoading)
   const purchasedHaiku = useAppSelector(purchasedHaikuSelector)
   const allHaiku = useAppSelector(allHaikuSelector)
@@ -139,7 +140,7 @@ const Dashboard = () => {
     <div className='user-dashboard' >
       <div className="container">
         { currentUser && <div className="purchases-div">
-          <h3>Hi {currentUser?.fullName}</h3>
+          <h3 onClick={() => console.log(currentUser, clearDate)} >Hi {currentUser?.fullName}</h3>
           <div className="purchases-cont">
             <div className="filter">
               <span onClick = {() => setDisplayedCategory("haiku")} >Haiku Wallpapers</span>
