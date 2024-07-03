@@ -85,7 +85,7 @@ const TopHaiku = ({haikuWallpapers}) => {
     const setNewCart = (price, product, image, id) => {
         const paymentID = generateRandomString();
         const email = currentUser?.email;
-        const purchasedWallpapers = [...currentUser?.purchases.haikuWallpapers]
+        const purchasedWallpapers = currentUser? [...currentUser?.purchases.haikuWallpapers] : []
         const category = 'haikuWallpapers'
 
         if(!email){
