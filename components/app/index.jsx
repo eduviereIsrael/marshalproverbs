@@ -14,6 +14,7 @@ const QUERY = gql `
       id
       url
     }
+    poetsNote
   }
   haikuWallpapers {
     id

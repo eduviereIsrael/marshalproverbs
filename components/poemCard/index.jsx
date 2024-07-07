@@ -5,12 +5,13 @@ import PlanTag from './planTag'
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { setCartDetails, setCartError } from '@/lib/store/slices/cart.reducer';
 import { selectCurrentUser } from '@/lib/store/slices/user.reducer';
-
+import { useRouter } from 'next/navigation';
 const PoemCard = ({poem, color, download}) => {
   const {title, subscriptionPlan, poemFile} = poem;
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser)
+  const router = useRouter()
 
 
   const plans = {
@@ -30,15 +31,9 @@ const PoemCard = ({poem, color, download}) => {
 
   const handlePoemSubscription = (plan) => {
     const email = currentUser?.email;
-    const sub = currentUser.sub.plan
+    const sub = currentUser?.sub?.plan
     const category = 'sub'
     const paymentID = generateRandomString();
-
-    if(!email){
-        dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
-        return
-
-    }
     
     if (plan.toLowerCase() === 'exclusive'){
       dispatch(setCartError({ error: "Contact us for enquiries on Exclusive poems", link: "contact"}))
@@ -46,23 +41,37 @@ const PoemCard = ({poem, color, download}) => {
       return
     }
 
-    dispatch(setCartDetails({
-      paymentID,
-      email,
-      product:plans[plan][1],
-      amount: plans[plan][0],
-      image:plans[plan][2],
-      category,
-      productId: plans[plan][3],
-  }))
+    if(!email){
+        dispatch(setCartError({error: 'You must be logged in to make this purchase', link: "login"}))
+        return
+
+    }
+
+      dispatch(setCartDetails({
+        paymentID,
+        email,
+        product:plans[plan][1],
+        amount: plans[plan][0],
+        image:plans[plan][2],
+        category,
+        productId: plans[plan][3],
+    }))
 
   }
+
+  const stringToSlug = str => str.toLowerCase().replace(/[\s.]+/g, '-');
 
   return (
     <div className='poem-card' style={{ borderColor: color? color : '' }} >
       <PlanTag plan={subscriptionPlan} />
       <p style={{ color: color? color: '' }} >{title}</p>
-      { !download? <button style={{ borderColor: color? color : '',  color: color? color: ''  }} onClick={() => handlePoemSubscription(subscriptionPlan.toLowerCase())} >Get poem</button> : 
+      { !download? <button style={{ borderColor: color? color : '',  color: color? color: ''  }} onClick={() => {
+        if(subscriptionPlan.toLowerCase() === "exclusive"){
+          handlePoemSubscription(subscriptionPlan)
+          return
+        }
+        router.push(`/poems?poem=${stringToSlug(title)}`)
+      }} >See more</button> : 
       <a href={poemFile.url} target='_blank' style={{ borderColor: color? color : '',  color: color? color: ''  }} >Download</a>}
     </div>
   )

@@ -1,6 +1,9 @@
 .poems-page{
     padding-top: 150px;
     width: 100%;
+
+
+
 }
 
 .filter{
@@ -35,3 +38,110 @@
 .haiku-card{
     margin-right: 0;
 }
+
+// CelestialWhispers.scss
+
+.poem-view {
+    width: 100%;
+    // padding-top: 150px;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+ 
+
+    
+    
+    .authors-note {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 50px 40px;
+      width: 100%;
+  
+      h2 {
+        font-size: 26px;
+        margin-bottom: 26px;
+        // font-family: Inter;
+      }
+  
+      .poet-note {
+        margin-bottom: 24px;
+  
+        .title {
+          font-size: 14px;
+          margin-bottom: 2px;
+          color: #7C7C7C;
+        }
+  
+        p {
+          font-size: 16px;
+          line-height: 1.5;
+          color: #555;
+        }
+      }
+  
+      .subscription-card {
+        background-color: #e0eaf1;
+        padding: 16px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 24px;
+  
+        h2 {
+          font-size: 18px;
+          margin-bottom: 16px;
+        }
+  
+        .subscribe-button {
+          background-color: #0070f3;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #005bb5;
+          }
+        }
+  
+        p {
+          font-size: 14px;
+          color: #555;
+          margin-top: 8px;
+        }
+      }
+  
+      .comments-section {
+        margin-top: 24px;
+  
+        h2 {
+          font-size: 20px;
+          margin-bottom: 16px;
+        }
+  
+        .comment {
+          margin-bottom: 16px;
+  
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+  
+            .comment-author {
+              font-size: 14px;
+              color: #888;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+  

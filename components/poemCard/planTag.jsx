@@ -14,7 +14,7 @@ const PlanTag = ({plan}) => {
     }
 
   return (
-    <div className='tag' style={{backgroundColor: getBg(plan), color: '#fff', width: "max-content", fontSize: '11px', fontWeight: '400', padding: '2px 11px', borderRadius: '30px'}} >{plan}</div>
+    <div className='tag' style={{backgroundColor: getBg(plan), color: '#fff', width: "max-content", letterSpacing: "2px", fontSize: '11px', fontWeight: '400', padding: '2px 11px', borderRadius: '30px'}} >{plan}</div>
   )
 }
 

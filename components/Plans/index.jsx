@@ -24,7 +24,7 @@ const Plans = () => {
   const setNewCart = (price, product, image, id) => {
     const paymentID = generateRandomString();
     const email = currentUser?.email;
-    const sub = currentUser.sub.plan
+    const sub = currentUser?.sub.plan
     const category = 'sub'
 
     if(!email){

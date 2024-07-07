@@ -61,7 +61,7 @@
     justify-content: center;
     /* overflow-x: hidden; */
     z-index: 6;
-    background-color: #F3F3F3;
+    // background-color: #F3F3F3;
 
 
 
@@ -101,9 +101,10 @@
     }
 
     .NavbarContainer{
+        box-sizing: border-box;
         width: 100%;
         color: #000;
-        max-width: 1600px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 17px 80px;
     
@@ -111,8 +112,12 @@
     
         align-items: center;
         justify-content: space-between;
-        background-color: #F3F3F3;
+        // background-color: #F3F3F3;
         // background-color: #a62b2b;
+        background-color: #fff;
+        // border-left: 30px solid #fff;
+        transform: translateX(-2px) translateY(10px);
+        border-radius: 12px;
 
         .user-menu{
             position: relative;
@@ -313,6 +318,8 @@
     // padding: 0 20px;
     z-index: 2;
     background-color: #FFFFFF;
+    max-width: 1280px;
+    margin: 0px auto;
   
 
     
@@ -332,7 +339,7 @@
         top: -15px;
         
         @media (min-width: 768px){
-            padding: 55px;
+            padding: 35px;
 
             border-radius: 6px;
             z-index: 2;
@@ -364,7 +371,7 @@
 
 
     @media (min-width: 768px){
-        padding: 0 80px;
+        padding: 0 30px;
 
         .poem-container{
             grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -396,6 +403,7 @@
         border: 0.5px solid #fff;
         padding: 4px 20px;
         border-radius: 5px;
+        cursor: pointer;
     }
 
     a{
@@ -405,6 +413,7 @@
         border: 0.5px solid #fff;
         padding: 4px 20px;
         border-radius: 5px;
+        cursor: pointer;
     }
 }
 
@@ -418,6 +427,8 @@
     width: 100%;
     background-color: #fff;
     padding-top: 80px;
+    max-width: 1280px;
+    margin: 0 auto;
 
     h2{
         font-weight: 400;
@@ -815,6 +826,8 @@
     background-color: #6C1324;
     color: #fff;
     padding: 125px 0 125px;
+    max-width: 1280px;
+    margin: 0 auto;
 
     h2{
         font-weight: 400;
@@ -827,7 +840,7 @@
 
     .poem-container{
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         gap: 20px;
 
         @media (min-width: 768px){
@@ -842,6 +855,8 @@
     width: 100%;
     background-color: #fff;
     padding: 120px 0;
+    max-width: 1280px;
+    margin: 0px auto;
 
 
     h2{
@@ -934,6 +949,56 @@
     }
 }
 
+.plans-card {
+    padding: 70px 20px;
+  //   border: 1px dotted #000;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-radius: 15px;
+    height: 100%;
+    h2{
+      font-weight: 400;
+      text-transform: unset;
+
+    }
+
+    .card-cta{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 70px;
+      gap: 15px;
+
+      a{
+          padding: 18px 50px;
+          text-decoration: none;
+          background-color: #fff;
+          color: #000;
+      }
+    }
+
+
+    h2{
+      color: #fff;
+      font-size: 28px;
+      padding-bottom: 30px;
+      
+      @media (min-width: 768px){
+          font-size: 36px;
+
+      }
+    }
+
+    p{
+      color: #fff;
+      font-size: 14px;
+    }
+  }
+  
+
 
 .plans{
 
@@ -967,7 +1032,7 @@
             font-weight: 400;
             text-transform: unset;
     
-        }
+          }
 
           .card-cta{
             display: flex;

@@ -99,9 +99,9 @@ export default async function Home() {
           </div>
           {/* <div></div> */}
         </div>
-
         <img src="/hero-bg.webp" className="desktop" />
         <img src="/mobile-hero.webp" className="mobile" />
+
       </div>
       <WeeklyPoems poemsIndex = {poems} />
       <TopHaiku haikuWallpapers={haikuWallpapers} />
