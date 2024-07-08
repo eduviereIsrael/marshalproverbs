@@ -34,11 +34,24 @@ const ConfirmPayment = () => {
       case "PLATINUM":
         return "PLN_dh7mxzwvvs8k7hc"
       case "SUPERNOVA":
-        return "PLN_kkecqv2bigm627n"
+        return "PLN_5nro0jaynpiges9"
       default:
         return ""
     }
   }
+
+  // const getPlanCode = (plan) => {
+  //   switch (plan) {
+  //     case "GOLD":
+  //       return "PLN_mnqp2d28whexlfg"
+  //     case "PLATINUM":
+  //       return "PLN_dh7mxzwvvs8k7hc"
+  //     case "SUPERNOVA":
+  //       return "PLN_kkecqv2bigm627n"
+  //     default:
+  //       return ""
+  //   }
+  // }
 
   useEffect(() => {
     if(payemntStatus === "completed"){

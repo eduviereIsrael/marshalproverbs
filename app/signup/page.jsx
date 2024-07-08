@@ -42,7 +42,9 @@ const SignUp = () => {
     const newUser = {
       sub: {
         plan: 'Starter',
-        id: null
+        id: null,
+        email_token: null,
+        subCode: null,  
       },
       fullName: fullName,
       purchases: {

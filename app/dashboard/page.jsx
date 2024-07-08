@@ -149,9 +149,9 @@ const Dashboard = () => {
                 }}  >Poems</span>
               {/* <span>Poems</span> */}
             </div>
-            { displayHaiku && <HaikuContainer haikuWallpapers={purchasedHaiku}  /> }
+            { displayHaiku? <HaikuContainer haikuWallpapers={purchasedHaiku}  /> : <> </> }
             { purchasedHaikuIsLoading && <span className= "spinner dark" ></span> }
-            { !purchasedHaikuIsLoading && !purchasedHaiku.length? <h5>No purchased haiku wallpaper to download currently</h5> : '' }
+            { !purchasedHaikuIsLoading && !purchasedHaiku.length && displayedCategory ==='haiku'? <h5>No purchased haiku wallpaper to download currently</h5> : '' }
             { displayPoems && <PoemsContainer poems = {getPoemsByPlan( plan.toLowerCase(), allPoems)} color = "#000" download = {true} /> }
           </div>
         </div> }

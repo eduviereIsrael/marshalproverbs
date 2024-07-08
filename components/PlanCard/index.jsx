@@ -53,9 +53,15 @@ const PlanCard = ({plan, color, title}) => {
     
       
     }
+
+    const capitalizeWords = (str) => {
+      return str.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+    }
     return (
     <div style={{backgroundColor: color}} className="plans-card">
-        <h2 style={{fontSize:"33px"}} >Subscribe to <em >{plan.tier.toLowerCase()}</em> for access to <b>{title.toLowerCase()} </b> and many other poems </h2>
+        <h2 style={{fontSize:"33px"}} >Subscribe to <em >{plan.tier.toLowerCase()}</em> for access to <b>{(title)} </b> and many other poems </h2>
         <p>{plan.description}</p>
         <div className="card-cta">
         <a onClick={() => {

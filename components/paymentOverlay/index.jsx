@@ -69,7 +69,8 @@ const PaymentOverlay = () => {
               }} ></div>}
               <h3 className='product' >{product}</h3>
               <p className='price' >you are about to make a USD{amount} purchase</p>
-              <button onClick={startPayment} >{cartIsLoading? <span className='spinner' ></span> : "Checkout"}</button>
+              {cartIsLoading? <span className='spinner dark' ></span> : <button onClick={startPayment} >{"Checkout"}</button>}
+              {/* <button onClick={startPayment} >{cartIsLoading? <span className='spinner' ></span> : "Checkout"}</button> */}
               <p className='disclaim' >Secured payments with paystack</p>
               <div className='close' onClick = {discardCart} >+</div>
             </div> 
