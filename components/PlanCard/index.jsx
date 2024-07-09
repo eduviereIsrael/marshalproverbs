@@ -61,7 +61,7 @@ const PlanCard = ({plan, color, title}) => {
     }
     return (
     <div style={{backgroundColor: color}} className="plans-card">
-        <h2 style={{fontSize:"33px"}} >Subscribe to <em >{plan.tier.toLowerCase()}</em> for access to <b>{(title)} </b> and many other poems </h2>
+        <h2 style={{fontSize:"33px"}} >Subscribe to <em >{plan?.tier?.toLowerCase()}</em> for access to <b>{(title)} </b> and many other poems </h2>
         <p>{plan.description}</p>
         <div className="card-cta">
         <a onClick={() => {

@@ -45,6 +45,7 @@ const SignUp = () => {
         id: null,
         email_token: null,
         subCode: null,  
+        status: "",
       },
       fullName: fullName,
       purchases: {

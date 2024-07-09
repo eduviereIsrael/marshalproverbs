@@ -2,11 +2,11 @@
 
 import React, {useState, useRef, useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { selectCurrentUser, selectUserIsLoading, selectClearDate } from "@/lib/store/slices/user.reducer";
+import { selectCurrentUser, selectUserIsLoading, selectClearDate, unsubscribeUser, setOverlay, unsubOverlaySelector, unsubLoadingSelector} from "@/lib/store/slices/user.reducer";
 import { purchasedHaikuSelector, allHaikuSelector, fetchPurchasedHaikus, haikuIsLoadingSelector } from '@/lib/store/slices/haiku.reducer';
 import { Inter } from "next/font/google";
 import { selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
-import { PoemsContainer } from '@/components';
+import { PoemsContainer, PlanTag } from '@/components';
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -103,6 +103,8 @@ const Dashboard = () => {
   const currentUser = useAppSelector(selectCurrentUser)
   const clearDate = useAppSelector(selectClearDate)
   const userIsLoading = useAppSelector(selectUserIsLoading)
+  const unsubOverlay = useAppSelector(unsubOverlaySelector)
+  const unsubscibedLoading = useAppSelector(unsubLoadingSelector)
   const purchasedHaiku = useAppSelector(purchasedHaikuSelector)
   const allHaiku = useAppSelector(allHaikuSelector)
   const allPoems = useAppSelector(selectAllPoemsReducer)
@@ -115,6 +117,15 @@ const Dashboard = () => {
   const paidWallpapers = currentUser?.purchases?.haikuWallpapers
 
   const [displayedCategory, setDisplayedCategory] = useState("haiku")
+  // const [overlay, setOverlay] = useState(false)
+
+  const setUnsubOverlay = (bool) => {
+    dispatch(setOverlay(bool))
+  }
+
+  const unsubscribeHandler = () => {
+    dispatch(unsubscribeUser({subCode: currentUser.sub.subCode, email_token: currentUser.sub.email_token}))
+  }
 
 
   const getPoemsByPlan = (plan, poems) => {
@@ -140,7 +151,12 @@ const Dashboard = () => {
     <div className='user-dashboard' >
       <div className="container">
         { currentUser && <div className="purchases-div">
-          <h3 onClick={() => console.log(currentUser, clearDate)} >Hi {currentUser?.fullName}</h3>
+          <div className="header">
+
+            <h3 onClick={() => console.log(currentUser, clearDate)} >Hi {currentUser?.fullName}</h3>
+            <PlanTag plan={currentUser.sub.plan} margin={0} />
+            {currentUser.sub.status === "active" && <button onClick={() => setUnsubOverlay(true)} >Unsubscribe</button>}
+          </div>
           <div className="purchases-cont">
             <div className="filter">
               <span onClick = {() => setDisplayedCategory("haiku")} >Haiku Wallpapers</span>
@@ -158,6 +174,21 @@ const Dashboard = () => {
         { userIsLoading && <span className='spinner dark' ></span> }
         { !userIsLoading && !currentUser? <div className="error">Sign in to view your purchases</div> : '' }
       </div>
+      {
+
+unsubOverlay && <div className="unsubscribe payment-overlay">
+          <div className="mobile-card error">
+          <div className='close' onClick={() => setUnsubOverlay(false)}>+</div>
+
+            <h3>Unsubscribe</h3>
+            <p style={{marginBottom: "10px"}} >Are you sure you want to unsubscribe from your plan? </p>
+            <p>You will have access to the plan but your payment will not be renewed at the end of the billing cycle</p>
+            <div className="btn-cont">
+              <button onClick={unsubscribeHandler} >Unsubscribe</button>
+            </div>
+          </div>
+      </div>
+      }
     </div>
   )
 }

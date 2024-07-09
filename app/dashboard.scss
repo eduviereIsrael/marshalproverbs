@@ -1,3 +1,22 @@
 .user-dashboard{
     padding-top: 150px;
+
+    .header{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-end;
+        margin-bottom: 20px;
+        gap: 8px;
+        button{
+            margin-left: auto;
+            padding: 8px;
+            background-color: transparent;
+            color: #000;
+            border: 1px solid #000;
+            outline: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    }
 }

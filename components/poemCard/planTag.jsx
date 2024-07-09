@@ -1,7 +1,8 @@
 import React from 'react'
 
-const PlanTag = ({plan}) => {
+const PlanTag = ({plan, margin}) => {
 
+    console.log(plan)
     const getBg = (tagPlan) => {
         switch(tagPlan.toLowerCase()){
             case 'gold':
@@ -14,7 +15,7 @@ const PlanTag = ({plan}) => {
     }
 
   return (
-    <div className='tag' style={{backgroundColor: getBg(plan), color: '#fff', width: "max-content", letterSpacing: "2px", fontSize: '11px', fontWeight: '400', padding: '2px 11px', borderRadius: '30px'}} >{plan}</div>
+      <div className='tag' style={{backgroundColor: getBg(plan), color: '#fff', width: "max-content", letterSpacing: "2px", fontSize: '11px', fontWeight: '400', padding: '4px 11px 2px', borderRadius: '30px', margin: margin? margin: "unset"}} >{plan}</div>
   )
 }
 
