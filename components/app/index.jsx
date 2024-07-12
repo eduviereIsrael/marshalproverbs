@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import Navbar from '../Navbar';
 import {GraphQLClient, gql} from 'graphql-request';
+import { Footer } from '..';
 
 
 const QUERY = gql `
@@ -51,6 +52,7 @@ export default async function App ({ children })  {
       <Suspense fallback={<div>Loading...</div>}>
         {children}
       </Suspense>
+      <Footer />
     </div>
   );
 };

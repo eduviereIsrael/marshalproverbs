@@ -18,7 +18,7 @@ body {
 
 
 .app{
-  max-width: 1600px;
+  max-width: 100vw;
   margin: 0 auto;
   min-height: 100vh;
 
@@ -173,4 +173,115 @@ main{
 
 .dark{
   border-top: 3px solid #000;
+}
+
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 90px 0;
+  width: 100%;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .footer-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      .logo {
+        margin-bottom: 20px;
+        width: 30px;
+        img{
+          width: 100%;
+        }
+
+        @media (min-width: 768px) {
+          margin-bottom: 0;
+          margin-right: 20px;
+        }
+      }
+
+      .links {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        *{
+          font-family: Inter;
+        }
+
+        .column{
+          gap: 8px;
+          span{
+            font-size: 20px;
+            margin-bottom: 5px;
+
+          }
+          a{
+            font-size: 14px;
+            color: #cccccc;
+          }
+        }
+
+        @media (min-width: 768px) {
+          flex-direction: row;
+
+          .column{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+
+        .column {
+          margin-bottom: 20px;
+
+          @media (min-width: 768px) {
+            margin-bottom: 0;
+            margin-right: 20px;
+
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+
+          a {
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 10px;
+
+            &:hover {
+              text-decoration: underline;
+            }
+
+            @media (min-width: 768px) {
+              margin-bottom: 0;
+              margin-right: 10px;
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

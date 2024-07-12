@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.2.2",
+    "@react-email/components": "^0.0.21",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-email": "^2.1.5",
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
