@@ -6,7 +6,7 @@ import { Footer } from '..';
 
 const QUERY = gql `
 {
-  poems {
+  poems(first: 110) {
     form
     id
     title
@@ -17,7 +17,7 @@ const QUERY = gql `
     }
     poetsNote
   }
-  haikuWallpapers {
+  haikuWallpapers(first: 110) {
     id
     price
     theme

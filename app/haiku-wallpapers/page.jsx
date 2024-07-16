@@ -11,7 +11,7 @@ import {GraphQLClient, gql} from 'graphql-request';
 
 const QUERY = gql `
 {
-  haikuWallpapers {
+  haikuWallpapers(first: 110) {
     theme
     id
     wallpapers {
