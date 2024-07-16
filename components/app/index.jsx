@@ -52,7 +52,7 @@ export default async function App ({ children })  {
       <Suspense fallback={<div>Loading...</div>}>
         {children}
       </Suspense>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

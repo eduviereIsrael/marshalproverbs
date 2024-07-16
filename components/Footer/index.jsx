@@ -18,8 +18,8 @@ const Footer = () => {
             </div>
             <div className="column">
                 <span>Socials</span>
-              <a href="/">Whatsapp</a>
-              <a href="/">Instagram</a>
+              <a target='_blank' href="/https://wa.me/2349158534855">Whatsapp</a>
+              <a target='_blank' href="/https://www.instagram.com/maw_shawl?utm_source=qr&igsh=OWRqa3RjMGlkdnd6">Instagram</a>
             </div>
             <div className="column">
                 <span>Contact</span>

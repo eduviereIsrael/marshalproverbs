@@ -5,7 +5,7 @@ import "./components.scss"
 import "./verifypage.scss"
 import "./dashboard.scss";
 import "./globals.scss";
-import { App } from "@/components";
+import { App, Footer } from "@/components";
 import StoreProvider from "./StoreProvider";
 
 
@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
               {/* <PaymentOverlay /> */}
             </div>
         </StoreProvider>
+        <Footer />
       </body>
     </html>
   );

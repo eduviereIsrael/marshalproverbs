@@ -62,7 +62,7 @@ const Navbar = ({data}) => {
       dispatch(signInAtFirstRender())
     } else {
       if(currentUser){
-        dispatch(checkSub({userId: currentUser.id, id: currentUser.sub.id}))
+        dispatch(checkSub({userId: currentUser.id, id: currentUser?.sub?.id}))
       }
     }
   }, [currentUser, dispatch])
