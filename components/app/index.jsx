@@ -31,8 +31,9 @@ const QUERY = gql `
 
 const graphCms = new GraphQLClient("https://api-eu-west-2.hygraph.com/v2/clrduuykb2fc701wdf6w493dq/master")
 
-
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function getData() {
+  await delay(200)
   const data = await graphCms.request(QUERY);
   if(data?.haikuWallpapers){
     return { haikuWallpapers: data.haikuWallpapers, poems: data.poems, data: data}
