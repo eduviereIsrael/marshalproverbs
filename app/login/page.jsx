@@ -4,9 +4,14 @@ import { InputTag } from '@/components'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
-import { signInUser, selectCurrentUser, selectUserIsLoading, selectUserError, setUserError } from '@/lib/store/slices/user.reducer';
+import { signInUser, selectCurrentUser, selectUserIsLoading,selectLastVisited, selectUserError, setUserError } from '@/lib/store/slices/user.reducer';
+import toast, {Toaster} from 'react-hot-toast';
+
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+
+  const Router = useRouter()
 
   const defaultDetails = {
     email: "",
@@ -25,6 +30,7 @@ const Login = () => {
   const currentUser = useAppSelector(selectCurrentUser)
   const userIsLoading = useAppSelector(selectUserIsLoading)
   const userError = useAppSelector(selectUserError)
+  const lastVisited = useAppSelector(selectLastVisited)
 
   const dispatch = useAppDispatch()
 
@@ -61,10 +67,29 @@ const Login = () => {
     }
   }
 
+
+  useEffect(() => {
+    if (currentUser) {
+      const defaultDetail = {
+        email: "",
+        password: "",
+      };
+      toast.success("logged in successfully");
+      setUserDetails(defaultDetail);
+
+      const timeOut = setTimeout(() => {
+
+        lastVisited? Router.push(lastVisited) : Router.push("/");
+      }, 2000);
+
+      return () => clearTimeout(timeOut);
+    }
+  }, [currentUser, Router, lastVisited]);
+
   
   useEffect(() => {
     if(userError){
-      // console.log(getErrors(userError))
+      toast.error(getErrors(userError))
       setErrBorder(true)
 
     }
@@ -77,12 +102,13 @@ const Login = () => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       if(errBorder){
+        // toast.error(getErrors(userError))
         setErrBorder(false)
         if(userError){
           dispatch(setUserError(null))
         }
       }
-    }, 5000)
+    }, 2000)
 
     return () => clearTimeout(timeOut)
     
@@ -142,13 +168,18 @@ const Login = () => {
             </span>
             <button className='link-button' type='submit' > {userIsLoading? <span className='spinner' ></span> : 'Login'} </button>
             {/* <PrimaryBtn style={{marginTop: "24px"}} > { requestStage === requestState.started? <span className='spinner' ></span> : 'Log in'} </PrimaryBtn> */}
-            { errBorder && <p style={{width: "100%", textAlign: "left", fontSize: "12px", color: "#F0263C"}} >{getErrors(userError)}</p>}
+            {/* { errBorder && <p style={{width: "100%", textAlign: "left", fontSize: "12px", color: "#F0263C"}} >{getErrors(userError)}</p>} */}
           </form>
             {/* <SecondaryBtn style={{marginTop: "16px"}} onClick={signInWithGoogle} > <img src='/google.svg' /> Log in with Google</SecondaryBtn> */}
             <span className='other-option' ><span>Don&apos;t have an account?</span><Link href={'/signup'} ><p>Sign up</p></Link></span>
             
           {/* <p className='other-option' ><span>Don&apos;t have an account?</span><Link href={'/signup'} ><p>Sign up</p></Link></p> */}
         </div>
+
+        <Toaster
+            position="top-right"
+            reverseOrder={false}
+          />
 
       </div>
     </div>

@@ -4,12 +4,13 @@ import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
-import { selectCurrentUser, signOut, selectClearDate } from '@/lib/store/slices/user.reducer';
+import { selectCurrentUser, signOut, selectClearDate, setLastVisited } from '@/lib/store/slices/user.reducer';
 import { signInAtFirstRender, checkSub } from '@/lib/store/slices/user.reducer'; 
 import { PaymentOverlay } from '..';
 import { selectPaymentOverlay } from '@/lib/store/slices/cart.reducer';
 import { setAllPoems, selectAllPoemsReducer } from "@/lib/store/slices/poems.reducer"
 import { allHaikuSelector, setHaiku } from "@/lib/store/slices/haiku.reducer"
+import { useUrl } from 'nextjs-current-url';
 
 
 const Navbar = ({data}) => {
@@ -18,6 +19,7 @@ const Navbar = ({data}) => {
   const [userNavClick, setUserNavClick] = useState(false)
 
   const router = useRouter()
+  const url = useUrl()
 
   const navigate = (url) => router.push(url)
   const currentUser = useAppSelector(selectCurrentUser)
@@ -30,6 +32,8 @@ const Navbar = ({data}) => {
   const haikuListed = useAppSelector(allHaikuSelector)
 
   const signOutHandler = () => dispatch(signOut())
+  const fullUrl = router.asPath;
+
 
   useEffect(() => {
       dispatch(setAllPoems(data.poems))
@@ -67,6 +71,10 @@ const Navbar = ({data}) => {
     }
   }, [currentUser, dispatch])
 
+  const handleLastVisit = () => {
+    dispatch(setLastVisited(url.pathname))
+  }
+
  
 
   return (
@@ -83,11 +91,11 @@ const Navbar = ({data}) => {
 
         {
             !currentUser? <div className="nav-buttons">
-            <Link href={'/login'} >
+            <Link  onClick={handleLastVisit} href={'/login'} >
               <span className='login' >LOGIN</span>
             </Link>
 
-            <Link href={'/signup'} >
+            <Link  onClick={handleLastVisit} href={'/signup'} >
               <span className='sign-up' >SIGN UP</span>
             </Link>
             </div> : <div className='user-menu' >
@@ -120,11 +128,11 @@ const Navbar = ({data}) => {
             <a href='/haiku-wallpapers'>Wallpapers</a>
             {
             !currentUser? <div className="nav-buttons"  >
-            <Link href={'/login'} >
+            <Link onClick={handleLastVisit}  href={'/login'} >
               <span className='login' onClick={() => setNavClick(false)} >LOGIN</span>
             </Link>
 
-            <Link href={'/signup'} >
+            <Link onClick={handleLastVisit}  href={'/signup'} >
               <span className='sign-up' onClick={() => setNavClick(false)} >SIGN UP</span>
             </Link>
             </div> : < >

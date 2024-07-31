@@ -2,7 +2,7 @@ import React from 'react'
 
 const PlanTag = ({plan, margin}) => {
 
-    console.log(plan)
+    // console.log(plan)
     const getBg = (tagPlan) => {
         switch(tagPlan.toLowerCase()){
             case 'gold':
