@@ -69,7 +69,7 @@ const Navbar = ({data}) => {
         dispatch(checkSub({userId: currentUser.id, id: currentUser?.sub?.id}))
       }
     }
-  }, [currentUser, dispatch])
+  }, [currentUser, dispatch, clearDate])
 
   const handleLastVisit = () => {
     dispatch(setLastVisited(url.pathname))
@@ -86,6 +86,7 @@ const Navbar = ({data}) => {
           <span onClick={() => navigate('/')} >Home</span>
           <span onClick={() => navigate('/poems')} >Poems</span>
           <span onClick={() => navigate('/haiku-wallpapers')} >Wallpapers</span>
+          <span onClick={() => navigate('/contact')} >Contact Us</span>
           
         </div>
 
@@ -126,6 +127,7 @@ const Navbar = ({data}) => {
             <a href='/'>Home</a>
             <a href='/poems'>Poems</a>
             <a href='/haiku-wallpapers'>Wallpapers</a>
+            <a href='/contact'>Contact Us</a>
             {
             !currentUser? <div className="nav-buttons"  >
             <Link onClick={handleLastVisit}  href={'/login'} >
