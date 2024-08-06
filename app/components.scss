@@ -563,6 +563,7 @@
     }
 
     @media (min-width: 768px){
+        padding-top: 0;
         h2{
             font-size: 44px;
         }    
@@ -1005,7 +1006,7 @@
 
 .plans{
 
-    padding: 120px 0;
+    padding: 120px 0 0;
     h2{
         font-weight: 400;
         font-size: 30px;
