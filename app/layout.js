@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+   { false?  <body className={inter.className}>
         <StoreProvider>
             <div className="app" >
               <App>
@@ -35,7 +35,11 @@ export default function RootLayout({ children }) {
             </div>
         </StoreProvider>
         <Footer />
+      </body> : 
+      <body style={{display: "flex", justifyContent: "center", alignItems: "center"}} >
+        <h1>UNDER CONSTRUCTION</h1>
       </body>
+      }
 
     </html>
   );
