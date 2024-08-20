@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-   { false?  <body className={inter.className}>
+   { true?  <body className={inter.className}>
         <StoreProvider>
             <div className="app" >
               <App>
