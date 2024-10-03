@@ -6,7 +6,7 @@ import { Footer } from '..';
 
 const QUERY = gql `
 {
-  poems(first: 110) {
+  poems(first: 310) {
     form
     id
     title
