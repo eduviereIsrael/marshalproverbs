@@ -24,7 +24,13 @@ const PoemsListed = ({poemsIndex}) => {
     //     { title: 'Whispers in the Night', subscriptionPlan: 'Supernova' },
     // ]
 
-    const poems = useAppSelector(selectAllPoemsReducer)
+    function getFirstTwentyElements(arr) {
+        return arr.length > 20 ? arr.slice(0, 20) : arr;
+      }
+      
+
+    const poems = getFirstTwentyElements(useAppSelector(selectAllPoemsReducer))
+
 
   return (
     <div className='poems-listed' >
