@@ -25,7 +25,7 @@ const PoemsListed = ({poemsIndex}) => {
     // ]
 
     function getFirstTwentyElements(arr) {
-        return arr.length > 20 ? arr.slice(0, 20) : arr;
+        return arr?.length > 20 ? arr.slice(0, 20) : arr;
       }
       
 
